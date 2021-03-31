@@ -1,0 +1,61 @@
+<%- include ('partials/_header'); %>
+
+<div class="container">
+  <h1>API con Node, Express y MongoDB</h1>
+  <div class="row">
+
+    <!-- Form -->
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <form action="/add" method="POST">
+            <div class="form-group">
+              <input type="text" name="title" placeholder="Insert title" class="form-control">
+            </div>
+            <div class="form-group">
+              <textarea name="description" cols="80" class="form-control" placeholder="Inserta description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table (data list) -->
+    <div class="col-md-7">
+      <table>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>N</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Operation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0; i<tasks.length; i++){ %>
+              <tr>
+                <td><%= i+1 %></td>
+                <td><%= tasks[i].title %></td>
+                <td><%= tasks[i].description %></td>
+                <td>
+                  <a href="/update/<%= tasks[i]._id %>"
+                    class="btn <%= tasks[i].status ? 'btn-success' : 'btn-dark' %>">
+                    Done
+                  </a>
+                  <a href="/delete/<%= tasks[i]._id %>" class="btn btn-danger">Delete</a>
+                  <a href="/edit/<%= tasks[i]._id %>" class="btn btn-info">Edit</a>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include ('partials/_footer'); %>
